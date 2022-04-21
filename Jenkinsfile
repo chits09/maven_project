@@ -4,12 +4,12 @@ agent any
 stages
 
 { stage ('scm checkout')
- { steps {git branch: 'master', url: 'https://github.com/prakashk0301/maven-project'}         //use pipeline syntax generator to generate script
+ { steps {git branch: 'master', url: 'https://github.com/chits09/maven_project.git'}         //use pipeline syntax generator to generate script
  }
 
 
   stage ('code compile' )
-  {steps {  withMaven(globalMavenSettingsConfig: '9ab3b61d-297c-42b6-9d77-2211ad67619d', jdk: 'LocalJDK', maven: 'LocalMaven') 
+  {steps {  withMaven(globalMavenSettingsConfig: 'null', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: 'null') 
    { sh 'mvn package'}
    }}
  
@@ -18,7 +18,7 @@ stages
 {steps 
   { sshagent (credentials: ['deploy-to-tomcat']) 
     {
-       sh 'scp -o StrictHostKeyChecking=no */target/*.war ec2-user@172.31.34.209:/var/lib/tomcat/webapps/'
+       sh 'scp -o StrictHostKeyChecking=no */target/*.war ec2-user@172.31.92.38:/var/lib/tomcat/webapps/'
   }}}
  
 
