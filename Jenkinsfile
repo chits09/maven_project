@@ -16,7 +16,7 @@ stages
  
  stage('dev-deployment')
 {steps 
-  { sshagent (credentials: ['deploy-to-tomcat']) 
+  { sshagent (['tomcat-pipeline']) 
     {
        sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/jenkins-ci-cd/webapp/target/*.war ec2-user@172.31.11.116:/var/lib/tomcat/webapps/'
   }}}
